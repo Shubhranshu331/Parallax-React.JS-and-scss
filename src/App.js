@@ -14,7 +14,7 @@ function App() {
   const renderContent = () => (
     <>
       <div className="Parallax__content__heading">
-        <h1 className="Parallax__content__heading__text">Parralax With React.JS and Scss</h1>
+        <h1 className="Parallax__content__heading__text">Parallax With React.JS and Scss</h1>
         <h2 className="Parallax__content__heading__caption">
         Parallax is a popular technique in React JS that involves creating an illusion of depth by moving the background at a different rate than the foreground.
         </h2>
