@@ -75,7 +75,7 @@ function App() {
             parallax scrolling and engaging motion effects.
           </h2>
 
-          <button className="explore-btn">Explore</button>
+          
         </div>
 
         {/* Features */}
