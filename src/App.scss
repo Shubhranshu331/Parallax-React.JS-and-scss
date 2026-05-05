@@ -7,6 +7,51 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Progress Bar */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background: #00ffcc;
+  z-index: 1000;
+}
+
+/* Top Button */
+.top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 15px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Button */
+.explore-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background: #ff737e;
+  color: white;
+  cursor: pointer;
+}
+
+/* Fade Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.fade-in.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .Parallax {
   display: flex;
   justify-content: center;
@@ -63,11 +108,14 @@ body {
       background-color: #ff737e;
       width: 60%;
       padding: 40px;
-
       font-size: 20px;
       color: #fff;
-
       margin-top: 120px;
+
+      &:hover {
+        transform: scale(1.02);
+        transition: 0.3s;
+      }
     }
   }
 }
