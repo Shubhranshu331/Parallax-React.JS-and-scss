@@ -3,82 +3,58 @@ import "./App.scss";
 
 function App() {
   const [offsetY, setOffsetY] = useState(0);
-  const handleScroll = () => setOffsetY(window.pageYOffset);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      setOffsetY(window.pageYOffset);
 
+      const totalHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (window.scrollY / totalHeight) * 100;
+      setScrollProgress(progress);
+
+      setShowTop(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const renderContent = () => (
-    <>
-      <div className="Parallax__content__heading">
-        <h1 className="Parallax__content__heading__text">Parallax With React.JS and Scss</h1>
-        <h2 className="Parallax__content__heading__caption">
-        Parallax is a popular technique in React JS that involves creating an illusion of depth by moving the background at a different rate than the foreground.
-        </h2>
-      </div>
-      <div className="Parallax__content__cta">
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-      </div>
-      <div className="Parallax__content__cta">
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-      </div>
-      <div className="Parallax__content__cta">
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-      </div>
-      <div className="Parallax__content__cta">
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-      </div>
-      <div className="Parallax__content__cta">
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-        <p>
-          <b>He stepped gingerly onto the bridge knowing that enchantment awaited on the other side.</b> It was difficult for Mary to admit that most of her workout consisted of exercising poor judgment.
-        </p>
-      </div>
-    </>
-  );
+  useEffect(() => {
+    const elements = document.querySelectorAll(".fade-in");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    });
+
+    elements.forEach((el) => observer.observe(el));
+  }, []);
 
   return (
     <section className="Parallax">
+      {/* Scroll Progress */}
+      <div
+        className="progress-bar"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
+      {/* Scroll to Top */}
+      {showTop && (
+        <button
+          className="top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          ↑ Top
+        </button>
+      )}
+
+      {/* Background */}
       <div
         className="Parallax__background"
         style={{ transform: `translateY(-${offsetY * 0.5}px)` }}
@@ -87,7 +63,69 @@ function App() {
         className="Parallax__background-triangles"
         style={{ transform: `translateY(${offsetY * 0.8}px)` }}
       />
-      <div className="Parallax__content">{renderContent()}</div>
+
+      {/* Content */}
+      <div className="Parallax__content">
+        <div className="Parallax__content__heading fade-in">
+          <h1 className="Parallax__content__heading__text">
+            Interactive Parallax Experience
+          </h1>
+          <h2 className="Parallax__content__heading__caption">
+            A modern interface built with React.js and SCSS showcasing smooth
+            parallax scrolling and engaging motion effects.
+          </h2>
+
+          <button className="explore-btn">Explore</button>
+        </div>
+
+        {/* Features */}
+        <div className="Parallax__content__cta fade-in">
+          <h3>Key Features</h3>
+          <p>• Smooth parallax scrolling with layered motion</p>
+          <p>• Scroll-based animations and transitions</p>
+          <p>• Responsive and clean UI design</p>
+          <p>• Component-based structure</p>
+        </div>
+
+        {/* Tech Stack */}
+        <div className="Parallax__content__cta fade-in">
+          <h3>Tech Stack</h3>
+          <p>• React.js</p>
+          <p>• SCSS (modular styling)</p>
+          <p>• JavaScript (scroll handling & DOM)</p>
+        </div>
+
+        {/* Why */}
+        <div className="Parallax__content__cta fade-in">
+          <h3>Why This Project?</h3>
+          <p>
+            Built to explore how motion and layered UI can improve user
+            engagement.
+          </p>
+          <p>
+            Demonstrates how simple frontend techniques create visually rich
+            experiences.
+          </p>
+        </div>
+
+        {/* Extra Visual Sections */}
+        {[1, 2].map((_, i) => (
+          <div key={i} className="Parallax__content__cta fade-in">
+            <p>
+              <b>Seamless scrolling.</b> Elements move at different speeds to
+              create depth.
+            </p>
+            <p>
+              <b>Modern UI.</b> Clean design with focus on readability and
+              structure.
+            </p>
+            <p>
+              <b>Performance focused.</b> Smooth animations with optimized
+              rendering.
+            </p>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
