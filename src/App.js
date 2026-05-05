@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
 
 function App() {
@@ -6,14 +6,6 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showTop, setShowTop] = useState(false);
 
-  const contentRef = useRef(null);
-
-  // ✅ Explore button handler
-  const handleExplore = () => {
-    contentRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // ✅ Scroll effects
   useEffect(() => {
     const handleScroll = () => {
       setOffsetY(window.pageYOffset);
@@ -30,7 +22,6 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Fade-in animation
   useEffect(() => {
     const elements = document.querySelectorAll(".fade-in");
 
@@ -75,7 +66,6 @@ function App() {
 
       {/* Content */}
       <div className="Parallax__content">
-        {/* Heading */}
         <div className="Parallax__content__heading fade-in">
           <h1 className="Parallax__content__heading__text">
             Interactive Parallax Experience
@@ -85,13 +75,11 @@ function App() {
             parallax scrolling and engaging motion effects.
           </h2>
 
-          <button className="explore-btn" onClick={handleExplore}>
-            Explore
-          </button>
+          <button className="explore-btn">Explore</button>
         </div>
 
-        {/* Features (scroll target) */}
-        <div ref={contentRef} className="Parallax__content__cta fade-in">
+        {/* Features */}
+        <div className="Parallax__content__cta fade-in">
           <h3>Key Features</h3>
           <p>• Smooth parallax scrolling with layered motion</p>
           <p>• Scroll-based animations and transitions</p>
@@ -120,7 +108,7 @@ function App() {
           </p>
         </div>
 
-        {/* Extra Sections */}
+        {/* Extra Visual Sections */}
         {[1, 2].map((_, i) => (
           <div key={i} className="Parallax__content__cta fade-in">
             <p>
